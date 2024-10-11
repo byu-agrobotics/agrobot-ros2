@@ -19,11 +19,6 @@ function printError {
 
 cleanup() {
 
-    sudo bash ~/gpio/strobe.sh off
-    bash ~/ros2_ws/dvl_tools/acoustics_on.sh false
-
-    printInfo "Acoustics successfully disabled"
-
     killall micro_ros_agent
     wait
 
@@ -32,19 +27,15 @@ cleanup() {
 trap cleanup SIGINT
 
 echo ""
-echo "######################################################################"
-echo "# BYU FROST LAB - CONFIGURABLE UNDERWATER GROUP OF AUTONOMOUS ROBOTS #"
-echo "######################################################################"
+echo "################################################################"
+echo "# BYU AGRICULTURAL ROBOTICS TEAM - STARTING THE AGROBOT SYSTEM #"
+echo "################################################################"
 echo ""
 
 # Quick fix for daemon error (TODO: find a better solution)
 source ~/ros2_ws/install/setup.bash
 ros2 daemon stop
 ros2 daemon start
-
-# Start the strobe light and Teensy board
-sudo bash ~/gpio/strobe.sh on
-sudo bash ~/gpio/power.sh on
 
 # Start the micro-ROS agent
 if [ -z "$(tycmd list | grep Teensy)" ]; then
