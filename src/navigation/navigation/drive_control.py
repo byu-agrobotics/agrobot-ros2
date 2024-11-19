@@ -4,6 +4,8 @@ from rclpy.action import ActionServer
 from agrobot_interfaces.msg import DriveCommand, ToFData
 from agrobot_interfaces.action import Center
 
+STABILITY_THRESHOLD = 10
+
 class DriveControl(Node):
     '''
     :author: ADD HERE
@@ -48,7 +50,22 @@ class DriveControl(Node):
         '''
         self.get_logger().info('Received request to center the robot')
 
-        # TODO: Add PID control to center the robot
+        stability_count = 0
+        centered = False
+        while not centered:
+            if self.new_data:
+
+                # Run PID control to center the robot
+                pass
+
+                # Check if the robot is centered
+                if self.tof_data == "centered":
+                    stability_count += 1
+                    if stability_count >= STABILITY_THRESHOLD:
+                        centered = True
+            
+                self.new_data = False
+
         goal_handle.succeed()
 
         result = Center.Result()
