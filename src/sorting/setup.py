@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'task_fsm'
+package_name = 'sorting'
 
 setup(
     name=package_name,
@@ -15,15 +15,12 @@ setup(
     zip_safe=True,
     maintainer='Nelson Durrant',
     maintainer_email='snelsondurrant@gmail.com',
-    description='Task FSMs for use by the BYU Agrobotics Team',
+    description='Egg sorting nodes for use by the BYU Agrobotics Team',
     license='Apache-2.0',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'collect_fsm = task_fsm.collect_fsm:main',
-            'handle_fsm = task_fsm.handle_fsm:main',
-            'navigate_fsm = task_fsm.navigate_fsm:main',
-            'sort_fsm = task_fsm.sort_fsm:main',
+            'egg_id = sorting.egg_id:main',
         ],
     },
 )

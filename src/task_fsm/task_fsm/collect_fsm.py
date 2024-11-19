@@ -1,21 +1,26 @@
 import rclpy
 from rclpy.node import Node
+from agrobot_interfaces.msg import Command
 from agrobot_interfaces.srv import IdentifyEgg, StartFSM
 
 from enum import Enum
 
-class SortFSM(Node):
+class CollectFSM(Node):
     '''
     :author: ADD HERE
     :date: ADD HERE
 
-    Finite State Machine for the sorting task.
+    Finite State Machine for the collect task.
+
+    Publishers:
+        - control/command (agrobot_interfaces/msg/Command) # TODO: Change this
+        - actuator/command (agrobot_interfaces/msg/Command) # TODO: Change this
 
     Clients:
-        - egg/identify (agrobot_interfaces/srv/IdentifyEgg)        
+        - egg/identify (agrobot_interfaces/srv/IdentifyEgg)    
 
     Services:
-        - sort/start (agrobot_interfaces/srv/StartFSM)
+        - collect/start (agrobot_interfaces/srv/StartFSM)
     '''
 
     # Define the states of the FSM
@@ -37,12 +42,16 @@ class SortFSM(Node):
             return
         self.egg_id_request = IdentifyEgg.Request
 
+        # Create the actuator publishers
+        self.control_pub = self.create_publisher(Command, 'control/command', 10)
+        self.actuator_pub = self.create_publisher(Command, 'actuator/command', 10)
+
         # Create the start service
-        self.start_service = self.create_service(StartFSM, 'sort/start', self.start_callback)
+        self.start_service = self.create_service(StartFSM, 'collect/start', self.start_callback)
 
     def start_callback(self, request, response):
 
-        self.get_logger().info('Received request to start the sorting FSM')
+        self.get_logger().info('Received request to start the collect FSM')
         self.running = True
         response.success = True
         return response
@@ -51,7 +60,7 @@ class SortFSM(Node):
         # Add something to the request?
         return self.egg_id_client.call_async(self.egg_id_request)
 
-def sort_fsm(node):
+def collect_fsm(node):
 
     while node.running:
         match node.state:
@@ -78,25 +87,31 @@ def sort_fsm(node):
     else:
         node.get_logger().info('Egg identified: %s' % response.egg_type)
         egg_type = response.egg_type
+        
+
+    # Publisher call example
+    actuator_msg = Command()
+    actuator_msg.command = 'actuator'
+    node.actuator_pub.publish(actuator_msg)
 
     node.running = False # Set when finished
 
 def main(args=None):
     rclpy.init(args=args)
 
-    sort_fsm_node = SortFSM()
-    while not sort_fsm_node.running:
-        rclpy.spin_once(sort_fsm_node)
+    collect_fsm_node = CollectFSM()
+    while not collect_fsm_node.running:
+        rclpy.spin_once(collect_fsm_node)
 
-    while sort_fsm_node.running:
-        sort_fsm(sort_fsm_node)
+    while collect_fsm_node.running:
+        collect_fsm(collect_fsm_node)
 
-    sort_fsm_node.get_logger().info('The sorting FSM finished')
+    collect_fsm_node.get_logger().info('The sorting FSM finished')
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    sort_fsm_node.destroy_node()
+    collect_fsm_node.destroy_node()
     rclpy.shutdown()
 
 
