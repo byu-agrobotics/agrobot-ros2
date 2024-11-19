@@ -8,16 +8,16 @@ source ~/ros2_ws/install/setup.bash
 
 case $1 in
     "sort")
-        ros2 service call /fsm/sort std_srvs/srv/Trigger # TODO: Add a sort service
+        ros2 service call /sort/start agrobot_interfaces/srv/StartFSM
         ;;
     "navigate")
-        ros2 service call /fsm/navigate std_srvs/srv/Trigger # TODO: Add a navigate service
+        ros2 service call /navigate/start agrobot_interfaces/srv/StartFSM
         ;;
     "handle")
-        ros2 service call /fsm/handle std_srvs/srv/Trigger # TODO: Add a handle service
+        ros2 service call /handle/start agrobot_interfaces/srv/StartFSM
         ;;
     "collect")
-        ros2 service call /fsm/collect std_srvs/srv/Trigger # TODO: Add a collect service
+        ros2 service call /collect/start agrobot_interfaces/srv/StartFSM
         ;;
     *)
         printError "No task configuration specified"
