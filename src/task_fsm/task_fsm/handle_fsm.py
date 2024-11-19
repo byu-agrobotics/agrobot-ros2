@@ -13,7 +13,6 @@ class HandleFSM(Node):
     Finite State Machine for the handle task.
 
     Publishers:
-        - control/command (agrobot_interfaces/msg/Command) # TODO: Change this
         - actuator/command (agrobot_interfaces/msg/Command) # TODO: Change this  
 
     Services:
@@ -32,11 +31,7 @@ class HandleFSM(Node):
         self.running = False
         self.state = self.State.RED
 
-        # Create the actuator publishers
-        self.control_pub = self.create_publisher(Command, 'control/command', 10)
         self.actuator_pub = self.create_publisher(Command, 'actuator/command', 10)
-
-        # Create the start service
         self.start_service = self.create_service(StartFSM, 'handle/start', self.start_callback)
 
     def start_callback(self, request, response):

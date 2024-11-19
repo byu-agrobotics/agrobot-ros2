@@ -12,11 +12,11 @@ class NavigateFSM(Node):
 
     Finite State Machine for the navigation task.
 
-    Publishers:
-        - control/command (agrobot_interfaces/msg/Command) # TODO: Change this
-
     Services:
         - navigate/start (agrobot_interfaces/srv/StartFSM)
+
+    Action Clients:
+        - control/center (agrobot_interfaces/action/Center)
     '''
 
     # Define the states of the FSM
@@ -31,8 +31,8 @@ class NavigateFSM(Node):
         self.running = False
         self.state = self.State.RED
 
-        # Create the actuator publishers
-        self.control_pub = self.create_publisher(Command, 'control/command', 10)
+        # Create the action client
+        # TODO: Add here
 
         # Create the start service
         self.start_service = self.create_service(StartFSM, 'navigate/start', self.start_callback)
@@ -61,10 +61,7 @@ def navigate_fsm(node):
                 node.get_logger().error('Invalid state')
                 break
 
-    # Publisher call example
-    control_msg = Command()
-    control_msg.command = 'control'
-    node.control_pub.publish(control_msg)
+    # TODO: Add action call example
 
     node.running = False # Set when finished
 
