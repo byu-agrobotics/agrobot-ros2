@@ -33,16 +33,16 @@ source ~/microros_ws/install/setup.bash
 source ~/ros2_ws/install/setup.bash
 case $1 in
     "sort")
-        ros2 launch agrobot sort_launch.py # TODO: Add a sort_launch.py file
+        ros2 launch agrobot sort_launch.py
         ;;
     "navigate")
-        ros2 launch agrobot navigate_launch.py # TODO: Add a navigate_launch.py file
+        ros2 launch agrobot navigate_launch.py
         ;;
     "handle")
-        ros2 launch agrobot handle_launch.py # TODO: Add a handle_launch.py file
+        ros2 launch agrobot handle_launch.py
         ;;
     "collect")
-        ros2 launch agrobot collect_launch.py # TODO: Add a collect_launch.py file
+        ros2 launch agrobot collect_launch.py
         ;;
     *)
         printError "No task configuration specified"
