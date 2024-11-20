@@ -22,6 +22,14 @@ class EggID(Node):
         self.egg_id_service = self.create_service(IdentifyEgg, 'egg/identify', self.egg_id_callback)
 
     def egg_id_callback(self, request, response):
+        '''
+        Callback function for the egg identification service.
+        
+        :param request: Request message
+        :type request: agrobot_interfaces.srv.IdentifyEgg.Request
+        :param response: Response message
+        :type response: agrobot_interfaces.srv.IdentifyEgg.Response
+        '''
 
         self.get_logger().info('Received request to identify an egg')
 

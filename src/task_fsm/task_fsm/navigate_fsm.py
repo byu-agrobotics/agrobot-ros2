@@ -43,6 +43,14 @@ class NavigateFSM(Node):
         self.start_service = self.create_service(StartFSM, 'navigate/start', self.start_callback)
 
     def start_callback(self, request, response):
+        '''
+        Callback function for the start service.
+        
+        :param request: Request message
+        :type request: agrobot_interfaces.srv.StartFSM.Request
+        :param response: Response message
+        :type response: agrobot_interfaces.srv.StartFSM.Response
+        '''
 
         self.get_logger().info('Received request to start the navigation FSM')
         self.running = True
@@ -56,6 +64,9 @@ class NavigateFSM(Node):
         return self._action_client.send_goal_async(goal_msg)
 
 def navigate_fsm(node):
+    '''
+    Finite State Machine for the navigation task.
+    '''
 
     while node.running:
         match node.state:

@@ -45,6 +45,14 @@ class SortFSM(Node):
         self.start_service = self.create_service(StartFSM, 'sort/start', self.start_callback)
 
     def start_callback(self, request, response):
+        '''
+        Callback function for the start service.
+        
+        :param request: Request message
+        :type request: agrobot_interfaces.srv.StartFSM.Request
+        :param response: Response message
+        :type response: agrobot_interfaces.srv.StartFSM.Response
+        '''
 
         self.get_logger().info('Received request to start the sorting FSM')
         self.running = True
@@ -55,6 +63,9 @@ class SortFSM(Node):
         return self.egg_id_client.call_async(self.egg_id_request)
 
 def sort_fsm(node):
+    '''
+    Finite State Machine for the sorting task.
+    '''
 
     while node.running:
         match node.state:

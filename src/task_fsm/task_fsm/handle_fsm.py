@@ -35,6 +35,14 @@ class HandleFSM(Node):
         self.start_service = self.create_service(StartFSM, 'handle/start', self.start_callback)
 
     def start_callback(self, request, response):
+        '''
+        Callback function for the start service.
+        
+        :param request: Request message
+        :type request: agrobot_interfaces.srv.StartFSM.Request
+        :param response: Response message
+        :type response: agrobot_interfaces.srv.StartFSM.Response
+        '''
 
         self.get_logger().info('Received request to start the handle FSM')
         self.running = True
@@ -42,6 +50,9 @@ class HandleFSM(Node):
         return response
 
 def handle_fsm(node):
+    '''
+    Finite State Machine for the handle task.
+    '''
 
     while node.running:
         match node.state:
