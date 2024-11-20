@@ -20,8 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'collect_fsm = task_fsm.collect_fsm:main',
-            'handle_fsm = task_fsm.handle_fsm:main',
+            # 'collect_fsm = task_fsm.collect_fsm:main', TODO: Uncomment this line
+            # 'handle_fsm = task_fsm.handle_fsm:main', TODO: Uncomment this line
             'navigate_fsm = task_fsm.navigate_fsm:main',
             'sort_fsm = task_fsm.sort_fsm:main',
         ],
