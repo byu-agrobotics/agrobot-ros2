@@ -1,12 +1,12 @@
 import rclpy
 from rclpy.node import Node
 from rclpy.action import ActionServer
-from agrobot_interfaces.msg import DriveCommand, ToFData
-from agrobot_interfaces.action import Center
+from agrobot_interfaces.msg import ToFData, DriveCommand
+from agrobot_interfaces.action import DriveControl
 
 STABILITY_THRESHOLD = 10
 
-class DriveControl(Node):
+class DriveController(Node):
     '''
     :author: Nelson Durrant
     :date: November 2024
@@ -20,16 +20,16 @@ class DriveControl(Node):
         - tof/data (agrobot_interfaces/msg/ToFData)
 
     Action Servers:
-        - control/center (agrobot_interfaces/action/Center)
+        - control/center (agrobot_interfaces/action/DriveControl)
         - TODO: Add more here? Straight line, turn, etc?
     '''
 
     def __init__(self):
-        super().__init__('drive_control')
+        super().__init__('drive_controller')
 
         self.drive_pub = self.create_publisher(DriveCommand, 'drive/command', 10)
         self.tof_sub = self.create_subscription(ToFData, 'tof/data', self.tof_callback, 10)
-        self.center_action_server = ActionServer(self, Center, 'control/center', self.center_callback)
+        self.center_action_server = ActionServer(self, DriveControl, 'control/center', self.center_callback)
 
         # PID control parameters
         self.declare_parameter('kp', 1.0)
@@ -38,7 +38,6 @@ class DriveControl(Node):
 
     def tof_callback(self, msg):
 
-        self.get_logger().info('Received ToF data: %s' % msg)
         self.tof_data = msg.data # TODO: Update this
 
     def center_callback(self, goal_handle):
@@ -48,7 +47,6 @@ class DriveControl(Node):
         :param goal_handle: The goal handle for the action server.
         :type goal_handle: agrobot_interfaces.action.Center.GoalHandle
         '''
-        self.get_logger().info('Received center action request')
 
         stability_count = 0
         centered = False
@@ -68,19 +66,20 @@ class DriveControl(Node):
 
         goal_handle.succeed()
 
-        result = Center.Result()
+        result = DriveControl.Result()
+        result.success = True
         return result
 
 def main(args=None):
     rclpy.init(args=args)
 
-    drive_control_node = DriveControl()
-    rclpy.spin(drive_control_node)
+    drive_controller_node = DriveController()
+    rclpy.spin(drive_controller_node)
 
     # Destroy the node explicitly
     # (optional - otherwise it will be done automatically
     # when the garbage collector destroys the node object)
-    drive_control_node.destroy_node()
+    drive_controller_node.destroy_node()
     rclpy.shutdown()
 
 

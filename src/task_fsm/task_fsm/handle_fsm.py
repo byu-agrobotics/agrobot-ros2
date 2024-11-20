@@ -60,7 +60,6 @@ def handle_fsm(node):
 
     # Publisher call example
     actuator_msg = Command()
-    actuator_msg.command = 'actuator'
     node.actuator_pub.publish(actuator_msg)
 
     node.running = False # Set when finished

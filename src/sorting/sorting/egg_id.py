@@ -10,8 +10,8 @@ class EggID(Node):
 
     Service that identifies eggs.
 
-    Clients:
-        - TODO: Add camera interface services here? Or just a subscriber?
+    Subscribers:
+        - TODO: Add camera subscriber
 
     Services:
         - egg/identify (agrobot_interfaces/srv/IdentifyEgg)
@@ -23,10 +23,6 @@ class EggID(Node):
         self.egg_id_service = self.create_service(IdentifyEgg, 'egg/identify', self.egg_id_callback)
 
     def egg_id_callback(self, request, response):
-
-        self.get_logger().info('Received request to identify an egg')
-
-        # TODO: Call the camera interface services here? Or just a subscriber?
 
         # TODO: Add egg identification code here
 

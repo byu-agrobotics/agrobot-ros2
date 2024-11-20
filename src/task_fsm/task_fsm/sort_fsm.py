@@ -52,7 +52,6 @@ class SortFSM(Node):
         return response
     
     def send_request(self):
-        # Add something to the request?
         return self.egg_id_client.call_async(self.egg_id_request)
 
 def sort_fsm(node):

@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'drive_control = navigation.drive_control:main',
+            'drive_controller = navigation.drive_controller:main',
             'drive_interface = navigation.drive_interface:main',
         ],
     },

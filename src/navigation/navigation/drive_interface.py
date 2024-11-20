@@ -41,8 +41,6 @@ class DriveInterface(Node):
         :type msg: agrobot_interfaces.msg.DriveCommand
         '''
 
-        self.get_logger().info('Received drive command: left_speed=%d, right_speed=%d' % (msg.left_speed, msg.right_speed))
-
         if msg.left_speed >= 0:
             self.roboclaw.ForwardM1(ROBOCLAW_ADDR, int(msg.left_speed)) # drive forward
         else:

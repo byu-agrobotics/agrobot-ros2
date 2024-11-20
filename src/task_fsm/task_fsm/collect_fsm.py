@@ -58,7 +58,6 @@ class CollectFSM(Node):
         return response
     
     def send_request(self):
-        # Add something to the request?
         return self.egg_id_client.call_async(self.egg_id_request)
 
 def collect_fsm(node):
@@ -92,7 +91,6 @@ def collect_fsm(node):
 
     # Publisher call example
     actuator_msg = Command()
-    actuator_msg.command = 'actuator'
     node.actuator_pub.publish(actuator_msg)
 
     node.running = False # Set when finished
