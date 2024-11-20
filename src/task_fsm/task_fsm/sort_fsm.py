@@ -13,7 +13,7 @@ class SortFSM(Node):
     Finite State Machine for the sorting task.
 
     Publishers:
-        - led/command (agrobot_interfaces/msg/LEDCommand) # TODO: Make this
+        - led/command (agrobot_interfaces/msg/LEDCommand)
 
     Clients:
         - egg/identify (agrobot_interfaces/srv/IdentifyEgg)        

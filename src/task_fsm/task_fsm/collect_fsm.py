@@ -98,7 +98,6 @@ def collect_fsm(node):
     else:
         node.get_logger().info('Egg identified: %s' % response.egg_type)
         egg_type = response.egg_type
-        
 
     # Publisher call example
     actuator_msg = Command()

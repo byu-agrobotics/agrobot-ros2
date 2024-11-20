@@ -15,7 +15,7 @@ class NavigateFSM(Node):
     Finite State Machine for the navigation task.
 
     Publishers:
-        - led/command (agrobot_interfaces/msg/LEDCommand) # TODO: Make this
+        - led/command (agrobot_interfaces/msg/LEDCommand)
 
     Services:
         - navigate/start (agrobot_interfaces/srv/StartFSM)

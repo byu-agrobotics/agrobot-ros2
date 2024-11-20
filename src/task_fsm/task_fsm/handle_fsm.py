@@ -17,6 +17,9 @@ class HandleFSM(Node):
 
     Services:
         - handle/start (agrobot_interfaces/srv/StartFSM)
+
+    Action Clients:
+        - TODO: Add here
     '''
 
     # Define the states of the FSM
@@ -30,6 +33,9 @@ class HandleFSM(Node):
 
         self.running = False
         self.state = self.State.RED
+
+        # Create the action clients
+        # TODO: Add here
 
         self.actuator_pub = self.create_publisher(Command, 'actuator/command', 10)
         self.start_service = self.create_service(StartFSM, 'handle/start', self.start_callback)
