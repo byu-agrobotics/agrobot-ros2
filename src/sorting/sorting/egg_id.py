@@ -5,41 +5,34 @@ from agrobot_interfaces.srv import IdentifyEgg
 
 class EggID(Node):
     '''
-    :author: ADD HERE
-    :date: ADD HERE
+    :author: Nelson Durrant
+    :date: November 2024
 
     Service that identifies eggs.
 
-    Publishers:
-        - egg/type (agrobot_interfaces/msg/EggType)
+    Clients:
+        - TODO: Add camera interface services here? Or just a subscriber?
 
     Services:
-        - egg/identify (agrobot_interfaces/srv/IdentifyEgg)  
+        - egg/identify (agrobot_interfaces/srv/IdentifyEgg)
     '''
 
     def __init__(self):
         super().__init__('egg_id')
 
-        # Create the egg type publisher
-        self.egg_type_pub = self.create_publisher(EggType, 'egg/type', 10)
-
-        # Create the egg identification service
         self.egg_id_service = self.create_service(IdentifyEgg, 'egg/identify', self.egg_id_callback)
 
     def egg_id_callback(self, request, response):
 
         self.get_logger().info('Received request to identify an egg')
 
-        # TODO: Interface with the camera here
+        # TODO: Call the camera interface services here? Or just a subscriber?
 
         # TODO: Add egg identification code here
 
-        # Publish the egg type
-        egg_type = EggType()
-        egg_type.egg_type = 1 # 1: small, 2: large, 3: bad
-        self.egg_type_pub.publish(egg_type)
-
-        response.egg_type = egg_type.egg_type
+        # Return the egg type for the FSM
+        egg_type = 1
+        response.egg_type = egg_type # 1: small, 2: large, 3: bad
         return response
 
 def main(args=None):

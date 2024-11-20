@@ -8,8 +8,8 @@ STABILITY_THRESHOLD = 10
 
 class DriveControl(Node):
     '''
-    :author: ADD HERE
-    :date: ADD HERE
+    :author: Nelson Durrant
+    :date: November 2024
 
     Node that runs the drive command controllers.
 
@@ -48,7 +48,7 @@ class DriveControl(Node):
         :param goal_handle: The goal handle for the action server.
         :type goal_handle: agrobot_interfaces.action.Center.GoalHandle
         '''
-        self.get_logger().info('Received request to center the robot')
+        self.get_logger().info('Received center action request')
 
         stability_count = 0
         centered = False

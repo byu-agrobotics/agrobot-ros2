@@ -1,15 +1,19 @@
 import rclpy
 from rclpy.node import Node
+from agrobot_interfaces.msg import LEDCommand
 from agrobot_interfaces.srv import IdentifyEgg, StartFSM
 
 from enum import Enum
 
 class SortFSM(Node):
     '''
-    :author: ADD HERE
-    :date: ADD HERE
+    :author: Nelson Durrant
+    :date: November 2024
 
     Finite State Machine for the sorting task.
+
+    Publishers:
+        - led/command (agrobot_interfaces/msg/LEDCommand) # TODO: Make this
 
     Clients:
         - egg/identify (agrobot_interfaces/srv/IdentifyEgg)        
@@ -37,7 +41,7 @@ class SortFSM(Node):
             return
         self.egg_id_request = IdentifyEgg.Request
 
-        # Create the start service
+        self.led_pub = self.create_publisher(LEDCommand, 'led/command', 10)
         self.start_service = self.create_service(StartFSM, 'sort/start', self.start_callback)
 
     def start_callback(self, request, response):
@@ -78,6 +82,10 @@ def sort_fsm(node):
     else:
         node.get_logger().info('Egg identified: %s' % response.egg_type)
         egg_type = response.egg_type
+
+    # Publisher call example
+    led_msg = LEDCommand()
+    node.led_pub.publish(led_msg)
 
     node.running = False # Set when finished
 

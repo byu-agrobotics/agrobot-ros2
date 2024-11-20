@@ -7,8 +7,8 @@ from enum import Enum
 
 class CollectFSM(Node):
     '''
-    :author: ADD HERE
-    :date: ADD HERE
+    :author: Nelson Durrant
+    :date: November 2024
 
     Finite State Machine for the collect task.
 
@@ -36,6 +36,9 @@ class CollectFSM(Node):
 
         self.running = False
         self.state = self.State.RED
+
+        # Create the action clients
+        # TODO: Add here
 
         # Create the egg identification client
         self.egg_id_client = self.create_client(IdentifyEgg, 'egg/identify')

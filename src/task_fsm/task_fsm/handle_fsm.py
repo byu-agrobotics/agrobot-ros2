@@ -7,8 +7,8 @@ from enum import Enum
 
 class HandleFSM(Node):
     '''
-    :author: ADD HERE
-    :date: ADD HERE
+    :author: Nelson Durrant
+    :date: November 2024
 
     Finite State Machine for the handle task.
 

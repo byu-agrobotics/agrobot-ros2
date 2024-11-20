@@ -1,16 +1,20 @@
 import rclpy
 from rclpy.node import Node
-from agrobot_interfaces.msg import Command
+from agrobot_interfaces.msg import LEDCommand
 from agrobot_interfaces.srv import StartFSM
+from agrobot_interfaces.action import Center
 
 from enum import Enum
 
 class NavigateFSM(Node):
     '''
-    :author: ADD HERE
-    :date: ADD HERE
+    :author: Nelson Durrant
+    :date: November 2024
 
     Finite State Machine for the navigation task.
+
+    Publishers:
+        - led/command (agrobot_interfaces/msg/LEDCommand) # TODO: Make this
 
     Services:
         - navigate/start (agrobot_interfaces/srv/StartFSM)
@@ -32,9 +36,9 @@ class NavigateFSM(Node):
         self.state = self.State.RED
 
         # Create the action client
-        # TODO: Add here
+        self._action_client = ActionClient(self, Center, 'control/center')
 
-        # Create the start service
+        self.led_pub = self.create_publisher(LEDCommand, 'led/command', 10)
         self.start_service = self.create_service(StartFSM, 'navigate/start', self.start_callback)
 
     def start_callback(self, request, response):
@@ -43,6 +47,12 @@ class NavigateFSM(Node):
         self.running = True
         response.success = True
         return response
+    
+    def send_goal(self):
+
+        goal_msg = Center.Goal()
+        self._action_client.wait_for_server()
+        return self._action_client.send_goal_async(goal_msg)
 
 def navigate_fsm(node):
 
@@ -61,7 +71,14 @@ def navigate_fsm(node):
                 node.get_logger().error('Invalid state')
                 break
 
-    # TODO: Add action call example
+    # Action call example
+    future = node.send_goal()
+    rclpy.spin_until_future_complete(node, future)
+    # TODO: Add result handling here ?
+
+    # Publisher call example
+    led_msg = LEDCommand()
+    node.led_pub.publish(led_msg)
 
     node.running = False # Set when finished
 
