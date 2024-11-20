@@ -1,6 +1,5 @@
 import rclpy
 from rclpy.node import Node
-from agrobot_interfaces.msg import EggType
 from agrobot_interfaces.srv import IdentifyEgg
 
 class EggID(Node):
@@ -23,6 +22,8 @@ class EggID(Node):
         self.egg_id_service = self.create_service(IdentifyEgg, 'egg/identify', self.egg_id_callback)
 
     def egg_id_callback(self, request, response):
+
+        self.get_logger().info('Received request to identify an egg')
 
         # TODO: Add egg identification code here
 

@@ -48,6 +48,8 @@ class DriveController(Node):
         :type goal_handle: agrobot_interfaces.action.Center.GoalHandle
         '''
 
+        self.get_logger().info('Received request to center the robot')
+
         stability_count = 0
         centered = False
         while not centered:

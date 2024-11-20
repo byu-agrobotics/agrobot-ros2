@@ -26,17 +26,17 @@ def generate_launch_description():
         ),
         launch_ros.actions.Node(
             package='task_fsm',
-            executable='sort_fsm.py',
+            executable='sort_fsm',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='sorting',
-            executable='egg_id.py',
+            executable='egg_id',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='sorting',
-            executable='camera_interface.py',
+            executable='camera_interface',
             parameters=[param_file],
         ),
     ])

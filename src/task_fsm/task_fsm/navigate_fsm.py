@@ -1,8 +1,9 @@
 import rclpy
 from rclpy.node import Node
+from rclpy.action import ActionClient
 from agrobot_interfaces.msg import LEDCommand
 from agrobot_interfaces.srv import StartFSM
-from agrobot_interfaces.action import Center
+from agrobot_interfaces.action import DriveControl
 
 from enum import Enum
 
@@ -20,7 +21,7 @@ class NavigateFSM(Node):
         - navigate/start (agrobot_interfaces/srv/StartFSM)
 
     Action Clients:
-        - control/center (agrobot_interfaces/action/Center)
+        - control/center (agrobot_interfaces/action/DriveControl)
     '''
 
     # Define the states of the FSM
@@ -36,7 +37,7 @@ class NavigateFSM(Node):
         self.state = self.State.RED
 
         # Create the action client
-        self._action_client = ActionClient(self, Center, 'control/center')
+        self._action_client = ActionClient(self, DriveControl, 'control/center')
 
         self.led_pub = self.create_publisher(LEDCommand, 'led/command', 10)
         self.start_service = self.create_service(StartFSM, 'navigate/start', self.start_callback)
@@ -50,7 +51,7 @@ class NavigateFSM(Node):
     
     def send_goal(self):
 
-        goal_msg = Center.Goal()
+        goal_msg = DriveControl.Goal()
         self._action_client.wait_for_server()
         return self._action_client.send_goal_async(goal_msg)
 

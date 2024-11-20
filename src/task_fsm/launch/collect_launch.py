@@ -26,27 +26,27 @@ def generate_launch_description():
         ),
         launch_ros.actions.Node(
             package='task_fsm',
-            executable='collect_fsm.py',
+            executable='collect_fsm',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='navigation',
-            executable='drive_controller.py',
+            executable='drive_controller',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='navigation',
-            executable='drive_interface.py',
+            executable='drive_interface',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='sorting',
-            executable='egg_id.py',
+            executable='egg_id',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='sorting',
-            executable='camera_interface.py',
+            executable='camera_interface',
             parameters=[param_file],
         ),
     ])

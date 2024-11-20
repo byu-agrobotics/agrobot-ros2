@@ -26,17 +26,17 @@ def generate_launch_description():
         ),
         launch_ros.actions.Node(
             package='task_fsm',
-            executable='navigation_fsm.py',
+            executable='navigate_fsm',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='navigation',
-            executable='drive_controller.py',
+            executable='drive_controller',
             parameters=[param_file],
         ),
         launch_ros.actions.Node(
             package='navigation',
-            executable='drive_interface.py',
+            executable='drive_interface',
             parameters=[param_file],
         ),
     ])
