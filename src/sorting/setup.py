@@ -21,7 +21,6 @@ setup(
     entry_points={
         'console_scripts': [
             'egg_id = sorting.egg_id:main',
-            'camera_interface = sorting.camera_interface:main',
         ],
     },
 )
