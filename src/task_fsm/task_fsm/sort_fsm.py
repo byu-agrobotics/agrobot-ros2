@@ -30,7 +30,7 @@ class SortFSM(Node):
         super().__init__('sort_fsm')
 
         self.running = False
-        self.state = self.State.RED
+        self.state = self.State.SORTING
 
         # Create the egg identification client
         self.egg_id_client = self.create_client(IdentifyEgg, 'egg/identify')
