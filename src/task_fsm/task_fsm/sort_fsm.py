@@ -24,9 +24,7 @@ class SortFSM(Node):
 
     # Define the states of the FSM
     class State(Enum):
-        RED = 1
-        GREEN = 2
-        BLUE = 3
+        SORTING = 0
 
     def __init__(self):
         super().__init__('sort_fsm')
@@ -69,33 +67,28 @@ def sort_fsm(node):
 
     while node.running:
         match node.state:
-            case node.State.RED:
-                # Do something
-                pass
-            case node.State.GREEN:
-                # Do something
-                pass
-            case node.State.BLUE:
-                # Do something
-                pass
+            case node.State.SORTING:
+                
+                future = node.send_request()
+                rclpy.spin_until_future_complete(node, future)
+                response = future.result()
+                if not response:
+                    node.get_logger().error('Service call failed')
+                else:
+                    node.get_logger().info('Egg identified: %s' % response.egg_type)
+
+                    led_msg = LEDCommand()
+                    if response.egg_type == 1: # small egg
+                        led_msg.command = 1
+                    elif response.egg_type == 2: # large egg
+                        led_msg.command = 2
+                    elif response.egg_type == 3: # bad egg
+                        led_msg.command = 3
+                    node.led_pub.publish(led_msg)
+
             case _: # Default case
                 node.get_logger().error('Invalid state')
                 break
-
-    # Service call example
-    egg_type = 0
-    future = node.send_request()
-    rclpy.spin_until_future_complete(node, future)
-    response = future.result()
-    if not response:
-        node.get_logger().error('Service call failed')
-    else:
-        node.get_logger().info('Egg identified: %s' % response.egg_type)
-        egg_type = response.egg_type
-
-    # Publisher call example
-    led_msg = LEDCommand()
-    node.led_pub.publish(led_msg)
 
     node.running = False # Set when finished
 
