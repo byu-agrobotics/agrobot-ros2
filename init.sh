@@ -7,7 +7,7 @@
 source ~/ros2_ws/install/setup.bash
 case $1 in
     "sort")
-        ros2 service call /sort/start agrobot_interfaces/srv/StartFSM
+        ros2 service call "/sort/start" agrobot_interfaces/srv/StartFSM
         ;;
     "navigate")
         ros2 service call /navigate/start agrobot_interfaces/srv/StartFSM

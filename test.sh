@@ -19,5 +19,7 @@ function printError {
 source ~/ros2_ws/install/setup.bash
 
 echo ""
-ros2 topic list # TODO: Make this more specific
+ros2 topic list -t # TODO: Make this more specific
+echo ""
+ros2 service list -t
 echo ""

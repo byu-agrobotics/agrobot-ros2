@@ -37,7 +37,7 @@ class SortFSM(Node):
         if not self.egg_id_client.wait_for_service(timeout_sec=1.0):
             self.get_logger().warn('Egg identification client not available')
             return
-        self.egg_id_request = IdentifyEgg.Request
+        self.egg_id_request = IdentifyEgg.Request()
 
         self.led_pub = self.create_publisher(LEDCommand, 'led/command', 10)
         self.start_service = self.create_service(StartFSM, 'sort/start', self.start_callback)

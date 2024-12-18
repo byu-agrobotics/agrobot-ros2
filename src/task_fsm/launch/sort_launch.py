@@ -34,9 +34,9 @@ def generate_launch_description():
             executable='egg_id',
             parameters=[param_file],
         ),
-        launch_ros.actions.Node(
-            package='sorting',
-            executable='camera_interface',
-            parameters=[param_file],
-        ),
+        # launch_ros.actions.Node(
+        #     package='sorting',
+        #     executable='camera_interface',
+        #     parameters=[param_file],
+        # ),
     ])
