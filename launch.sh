@@ -25,10 +25,10 @@ echo "################################################################"
 echo ""
 
 # Test for Teensy board connection
-# if [ -z "$(tycmd list | grep Teensy)" ]; then
-#     printError "No Teensy boards avaliable to connect to"
-#     exit 1
-# fi
+if [ -z "$(tycmd list | grep Teensy)" ]; then
+    printError "No Teensy boards avaliable to connect to"
+    exit 1
+fi
 
 # Start both workspaces
 source ~/microros_ws/install/setup.bash
