@@ -1,7 +1,7 @@
 #!/bin/bash
 # Created by Nelson Durrant, Sep 2024
 #
-# Tests vehicle sensors and actuators
+# Tests robot sensors and actuators
 # - Run this after running the 'launch.sh' script
 
 function printInfo {

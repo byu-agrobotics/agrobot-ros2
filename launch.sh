@@ -4,7 +4,7 @@
 # Starts the micro-ROS agent and ROS 2 launch files
 # - Specify a task configuration using 'bash launch.sh <task>' (ex. 'bash launch.sh sort')
 
-export PARAM_FILE=/home/agrobot/config/vehicle_params.yaml
+export PARAM_FILE=/home/agrobot/config/robot_params.yaml
 
 function printInfo {
   echo -e "\033[0m\033[36m[INFO] $1\033[0m"

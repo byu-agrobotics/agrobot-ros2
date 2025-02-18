@@ -8,7 +8,7 @@ import launch_ros.descriptions
 # https://github.com/BYU-FRoSt-Lab/cougars-teensy.git
 # They may be a bit more complicated than needed for this though.
 
-param_file = '/home/agrobot/config/vehicle_params.yaml'
+param_file = '/home/agrobot/config/robot_params.yaml'
 
 def generate_launch_description():
     return launch.LaunchDescription([
