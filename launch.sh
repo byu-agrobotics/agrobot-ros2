@@ -35,15 +35,19 @@ source ~/microros_ws/install/setup.bash
 source ~/ros2_ws/install/setup.bash
 case $1 in
     "sort")
+        printInfo "Starting the sort task nodes..."
         ros2 launch task_fsm sort_launch.py param_file:=$PARAM_FILE
         ;;
     "navigate")
+        printInfo "Starting the navigate task nodes..."
         ros2 launch task_fsm navigate_launch.py param_file:=$PARAM_FILE
         ;;
     "handle")
+        printInfo "Starting the handle task nodes..."
         ros2 launch task_fsm handle_launch.py param_file:=$PARAM_FILE
         ;;
     "collect")
+        printInfo "Starting the collect task nodes..."
         ros2 launch task_fsm collect_launch.py param_file:=$PARAM_FILE
         ;;
     *)
