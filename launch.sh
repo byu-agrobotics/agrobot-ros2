@@ -30,9 +30,7 @@ if [ -z "$(tycmd list | grep Teensy)" ]; then
     exit 1
 fi
 
-# Start both workspaces
-source ~/microros_ws/install/setup.bash
-source ~/ros2_ws/install/setup.bash
+# Launch the specified task
 case $1 in
     "sort")
         printInfo "Starting the sort task nodes..."

@@ -16,7 +16,7 @@ function printError {
   echo -e "\033[0m\033[31m[ERROR] $1\033[0m"
 }
 
-source ~/ros2_ws/install/setup.bash
+# Trigger the specified task
 case $1 in
     "sort")
         printInfo "Triggering the sort task..."
