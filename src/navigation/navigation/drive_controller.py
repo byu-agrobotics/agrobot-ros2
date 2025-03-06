@@ -5,6 +5,7 @@ from agrobot_interfaces.msg import ToFData, DriveCommand
 from agrobot_interfaces.action import DriveControl
 
 STABILITY_THRESHOLD = 10
+CENTERING_THRESHOLD = 1 # 1mm threshold for centering the robot
 
 class DriveController(Node):
     '''
@@ -56,10 +57,36 @@ class DriveController(Node):
             if self.new_data:
 
                 # Run PID control to center the robot
-                pass
+                # pass
+
+                # Run PD control to center the robot
+                # Calculate position errors
+                forward_error = (self.tof_data.front - self.tof_data.back)
+                lateral_error = (self.tof_data.left - self.tof_data.right)
+
+                # Calculate PD outputs
+                kp = 0.3  # Proportional gain
+
+                forward_correction = kp * forward_error
+                lateral_correction = kp * lateral_error
+
+                # Generate motor commands (differential drive)
+                drive_cmd = DriveCommand()
+                drive_cmd.left = forward_correction - lateral_correction
+                drive_cmd.right = forward_correction + lateral_correction
+
+                # Apply speed limits
+                max_speed = 0.5
+                drive_cmd.left = max(min(drive_cmd.left, max_speed), -max_speed)
+                drive_cmd.right = max(min(drive_cmd.right, max_speed), -max_speed)
+
+                self.drive_pub.publish(drive_cmd)
 
                 # Check if the robot is centered
-                if self.tof_data == "centered":
+                if abs(forward_error) < CENTERING_THRESHOLD and abs(lateral_error) < CENTERING_THRESHOLD:
+                    center_est = True
+
+                if center_est:
                     stability_count += 1
                     if stability_count >= STABILITY_THRESHOLD:
                         centered = True
