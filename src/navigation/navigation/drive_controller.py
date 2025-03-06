@@ -84,9 +84,6 @@ class DriveController(Node):
 
                 # Check if the robot is centered
                 if abs(forward_error) < CENTERING_THRESHOLD and abs(lateral_error) < CENTERING_THRESHOLD:
-                    center_est = True
-
-                if center_est:
                     stability_count += 1
                     if stability_count >= STABILITY_THRESHOLD:
                         centered = True
