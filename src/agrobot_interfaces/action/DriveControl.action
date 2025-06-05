@@ -1,8 +1,9 @@
-# DriveControl action
-
-# request
+# Goal section is empty
 ---
-# response
+# Result
 bool success
 ---
-# feedback
+# Feedback
+float32 forward_error
+float32 lateral_error
+int32 stability_count
