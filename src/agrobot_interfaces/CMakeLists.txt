@@ -22,6 +22,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/IdentifyEgg.srv"
   "srv/StartFSM.srv"
   "action/DriveControl.action"
+  "action/DriveStraight.action"
+  "action/Turn.action"
   DEPENDENCIES std_msgs
 )
 
